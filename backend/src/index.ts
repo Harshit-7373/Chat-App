@@ -1,16 +1,25 @@
 import { WebSocket, WebSocketServer } from "ws";
 import { parse, v4 as uuidv4 } from "uuid";
 
-const wss = new WebSocketServer({ port: 8080 });
+const PORT = Number(process.env.PORT) || 8080;
+
+const wss = new WebSocketServer({
+  port: PORT,
+  host: "0.0.0.0",
+});
 
 interface User {
- socket:WebSocket,
- username:String,
- room: String
+  socket: WebSocket;
+  username: string;
+  room: string;
 }
 
 let userCount = 0;
-let allSocket : User[]=[];
+let allSocket: User[] = [];
+
+wss.on("listening", () => {
+  console.log(`WebSocket server listening on port ${PORT}`);
+});
 
 
 wss.on("connection", (socket) => {
