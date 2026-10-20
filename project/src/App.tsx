@@ -17,7 +17,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket("wss://chat-app-2-k4mi.onrender.com");
   setSocket(ws);
 
     ws.onopen = () => {
